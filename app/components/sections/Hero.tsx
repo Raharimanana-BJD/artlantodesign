@@ -33,7 +33,7 @@ export function Hero() {
         }}
       />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-[clamp(28px,3.4vw,44px)] px-gutter pt-24 pb-[110px] text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-[clamp(28px,3.4vw,44px)] px-gutter pt-24 pb-27.5 text-center">
         <h1 className="m-0 text-display font-semibold uppercase tracking-display">
           <span className="block">L&apos;artisanat</span>
           <span className="block">malgache,</span>
@@ -49,7 +49,7 @@ export function Hero() {
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-[clamp(24px,3vw,36px)]">
-        <div className="mx-auto flex max-w-[1440px] items-end justify-between gap-6 px-gutter text-[12.5px] leading-relaxed text-white/90">
+        <div className="mx-auto flex max-w-360 items-end justify-between gap-6 px-gutter text-micro leading-relaxed text-white/90">
           <span>
             Tuléar, Madagascar
             <br />

@@ -19,9 +19,9 @@ export function UniversPlante() {
     <section id="plante" className="bg-sage-bg text-sage-ink">
       <Container py="section">
         <Reveal className="flex flex-wrap gap-x-[clamp(32px,5vw,80px)] gap-y-12">
-          <div className="flex flex-1 basis-[420px] flex-col gap-7">
+          <div className="flex flex-1 basis-105 flex-col gap-7">
             <div className="flex items-center gap-3">
-              <span className="flex size-[34px] items-center justify-center overflow-hidden rounded-full bg-white">
+              <span className="flex size-8.5 items-center justify-center overflow-hidden rounded-full bg-white">
                 <Image src={logoUniversPlante} alt="" className="h-[78%] w-[78%] object-contain" />
               </span>
               <span className="text-micro text-sage-muted">(02) Univers Plante</span>
@@ -40,7 +40,7 @@ export function UniversPlante() {
             />
           </div>
 
-          <div className="flex flex-1 basis-[400px] flex-col justify-end gap-8">
+          <div className="flex flex-1 basis-100 flex-col justify-end gap-8">
             <p className="m-0 max-w-[28em] text-body text-sage-body">
               Pour votre jardin, votre terrasse ou l&apos;accueil de votre établissement. Conseil,
               sélection et accessoires au même endroit.
@@ -50,7 +50,7 @@ export function UniversPlante() {
                 <a
                   key={c.name}
                   href="#contact"
-                  className="group flex items-center justify-between gap-4 border-t border-sage-ink/20 py-[18px] text-sage-ink transition-[color,padding] duration-200 hover:pl-1.5 hover:text-sage-accent"
+                  className="group flex items-center justify-between gap-4 border-t border-sage-ink/20 py-4.5 text-sage-ink transition-[color,padding] duration-200 hover:pl-1.5 hover:text-sage-accent"
                 >
                   <span className="text-[clamp(20px,1.8vw,24px)] font-medium tracking-[-0.02em]">
                     {c.name}

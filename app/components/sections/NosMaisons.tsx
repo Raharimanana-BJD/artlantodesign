@@ -60,7 +60,8 @@ export function NosMaisons() {
             maisons
           </SectionHeading>
           <p className="m-0 max-w-[22em] text-small text-warm-muted">
-            Survolez une maison pour la découvrir. Combinez les pour un projet complet.
+            Survolez une maison pour la découvrir. Combinez les pour un projet
+            complet.
           </p>
         </div>
 
@@ -103,7 +104,7 @@ export function NosMaisons() {
                 )}
 
                 <div className="relative flex flex-col gap-2.5">
-                  <span className="text-[12px] opacity-75">{m.tag}</span>
+                  <span className="text-xs opacity-75">{m.tag}</span>
                   <span className="border-t border-current pt-2.5 text-2xl font-medium tracking-[-0.02em]">
                     {m.n}
                   </span>
@@ -112,7 +113,7 @@ export function NosMaisons() {
                 <div className="relative flex flex-col gap-4">
                   <span
                     className={
-                      "flex size-[38px] items-center justify-center overflow-hidden " +
+                      "flex size-9.5 items-center justify-center overflow-hidden " +
                       (m.logoShape === "square" ? "" : "rounded-full") +
                       (m.logoShape === "circle-white" ? " bg-white" : "")
                     }
@@ -120,11 +121,17 @@ export function NosMaisons() {
                     <Image
                       src={m.logo}
                       alt=""
-                      className={m.logoShape === "circle-white" ? "h-[78%] w-[78%] object-contain" : "h-full w-full object-contain"}
+                      className={
+                        m.logoShape === "circle-white"
+                          ? "h-[78%] w-[78%] object-contain"
+                          : "h-full w-full object-contain"
+                      }
                     />
                   </span>
                   {isActive && (
-                    <span className="max-w-[24em] text-[14px] leading-[1.5] text-white/90">{m.desc}</span>
+                    <span className="max-w-[24em] text-sm leading-normal text-white/90">
+                      {m.desc}
+                    </span>
                   )}
                   <span className="flex items-end justify-between gap-3">
                     <span className="max-w-[8em] text-[clamp(24px,2.2vw,32px)] leading-none font-medium tracking-[-0.03em]">
@@ -154,6 +161,8 @@ export function NosMaisons() {
 function cardClassName(isActive: boolean) {
   return (
     "group relative flex min-h-[480px] flex-col justify-between gap-10 overflow-hidden rounded-[6px] p-5 box-border outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-ink " +
-    (isActive ? "border border-transparent text-white" : "border border-rule text-warm-ink")
+    (isActive
+      ? "border border-transparent text-white"
+      : "border border-rule text-warm-ink")
   );
 }

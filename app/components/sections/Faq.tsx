@@ -49,7 +49,7 @@ export function Faq() {
                     {item.q}
                     <span
                       aria-hidden="true"
-                      className="flex-none text-[18px] font-light"
+                      className="flex-none text-lg font-light"
                     >
                       {open ? "×" : "+"}
                     </span>

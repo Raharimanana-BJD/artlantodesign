@@ -63,13 +63,13 @@ export function Processus() {
           className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,230px),1fr))] gap-3"
         >
           {STEPS.map((step) => (
-            <Card key={step.title} className="flex flex-col gap-10 p-[22px]">
-              <span className="font-serif text-[30px] leading-none text-warm-ink-hover">
+            <Card key={step.title} className="flex flex-col gap-10 p-5.5">
+              <span className="font-serif text-3xl leading-none text-warm-ink-hover">
                 {step.symbol}
               </span>
               <div className="flex flex-col gap-2">
                 <strong className="text-[15.5px] font-semibold">{step.title}</strong>
-                <span className="text-[14px] leading-[1.5] text-warm-muted">{step.desc}</span>
+                <span className="text-sm leading-[1.5] text-warm-muted">{step.desc}</span>
               </div>
             </Card>
           ))}
@@ -90,7 +90,7 @@ export function Processus() {
         />
         <Reveal
           as="div"
-          className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-[22px] px-gutter py-band text-center"
+          className="relative mx-auto flex max-w-360 flex-col items-center gap-5.5 px-gutter py-band text-center"
         >
           <h2 className="m-0 text-h2 font-normal">
             Un projet en tête ?
@@ -102,7 +102,7 @@ export function Processus() {
           </p>
           <form
             onSubmit={quickSubmit}
-            className="mt-2 flex w-full max-w-[380px] items-center gap-1.5 rounded-full bg-white/92 p-1.5 pl-5"
+            className="mt-2 flex w-full max-w-95 items-center gap-1.5 rounded-full bg-white/92 p-1.5 pl-5"
           >
             <input
               type="text"
@@ -119,13 +119,13 @@ export function Processus() {
               value={quick}
               onChange={(e) => setQuick(e.target.value)}
               disabled={quickStatus === "submitting"}
-              className="min-w-0 flex-1 border-0 bg-transparent py-2.5 text-warm-ink text-[14px] outline-none placeholder:text-warm-ink/45"
+              className="min-w-0 flex-1 border-0 bg-transparent py-2.5 text-warm-ink text-sm outline-none placeholder:text-warm-ink/45"
             />
             <button
               type="submit"
               aria-label="Envoyer"
               disabled={quickStatus === "submitting"}
-              className="flex size-[38px] flex-none items-center justify-center rounded-full bg-warm-ink text-[15px] text-white transition-colors duration-200 hover:bg-warm-ink-hover disabled:opacity-70"
+              className="flex size-9.5 flex-none items-center justify-center rounded-full bg-warm-ink text-small text-white transition-colors duration-200 hover:bg-warm-ink-hover disabled:opacity-70"
             >
               →
             </button>

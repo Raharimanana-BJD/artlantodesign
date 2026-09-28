@@ -64,7 +64,7 @@ export function Gallery() {
     <section aria-label="Réalisations">
       <Container py="section">
         <Reveal className="flex flex-wrap gap-x-[clamp(32px,5vw,80px)] gap-y-10">
-          <div className="flex flex-none basis-[300px] flex-col justify-between gap-10">
+          <div className="flex flex-none basis-75 flex-col justify-between gap-10">
             <div className="flex flex-col gap-7">
               <SectionHeading eyebrow="nos" tone="warm">
                 pièces
@@ -82,7 +82,7 @@ export function Gallery() {
                 type="button"
                 aria-label="Pièce précédente"
                 onClick={prev}
-                className="flex size-10 items-center justify-center rounded-full border border-warm-ink/30 text-[15px] text-warm-ink transition-colors duration-200 hover:bg-warm-ink hover:text-white"
+                className="flex size-10 items-center justify-center rounded-full border border-warm-ink/30 text-small text-warm-ink transition-colors duration-200 hover:bg-warm-ink hover:text-white"
               >
                 ←
               </button>
@@ -90,14 +90,14 @@ export function Gallery() {
                 type="button"
                 aria-label="Pièce suivante"
                 onClick={next}
-                className="flex size-10 items-center justify-center rounded-full border border-warm-ink/30 text-[15px] text-warm-ink transition-colors duration-200 hover:bg-warm-ink hover:text-white"
+                className="flex size-10 items-center justify-center rounded-full border border-warm-ink/30 text-small text-warm-ink transition-colors duration-200 hover:bg-warm-ink hover:text-white"
               >
                 →
               </button>
             </div>
           </div>
 
-          <div className="min-w-0 flex-1 basis-[520px] overflow-hidden">
+          <div className="min-w-0 flex-1 basis-130 overflow-hidden">
             <div
               className="flex gap-3"
               style={{
@@ -115,7 +115,7 @@ export function Gallery() {
                     credit={g.credit}
                     creditHref={g.creditHref}
                   />
-                  <figcaption className="flex justify-between gap-3 text-[12.5px] text-warm-muted">
+                  <figcaption className="flex justify-between gap-3 text-micro text-warm-muted">
                     <span>{g.title}</span>
                     <span>{g.house}</span>
                   </figcaption>

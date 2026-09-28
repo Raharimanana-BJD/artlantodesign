@@ -83,14 +83,14 @@ export function CreditedImage({
   );
 
   const wrapperClassName = aspect
-    ? cn("relative overflow-hidden rounded-[6px]", className)
+    ? cn("relative overflow-hidden rounded-md", className)
     : cn("absolute inset-0 overflow-hidden", className);
 
   return (
     <div className={wrapperClassName} style={aspect ? { aspectRatio: aspect } : undefined}>
       {image}
       {trimmedCredit ? (
-        <span className="absolute left-1.5 bottom-1.5 max-w-[calc(100%-12px)] truncate rounded-[5px] bg-black/55 px-[7px] py-[3px] text-[10px]/[1.2] text-white backdrop-blur-[6px]">
+        <span className="absolute left-1.5 bottom-1.5 max-w-[calc(100%-12px)] truncate rounded-[5px] bg-black/55 px-1.75 py-0.75 text-[10px]/[1.2] text-white backdrop-blur-[6px]">
           {!creditLinks ? (
             trimmedCredit
           ) : match ? (

@@ -24,7 +24,7 @@ export function OrAura() {
       <Container py="section">
         <Reveal className="mb-[clamp(48px,6vw,80px)] flex flex-wrap items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <Image src={logoOraura} alt="" className="size-[34px] rounded-full" />
+            <Image src={logoOraura} alt="" className="size-8.5 rounded-full" />
             <span className="text-micro text-oraura-muted">
               (03) Or&apos;Aura, The Lounge Grill &amp; Hub Restaurant
             </span>
@@ -39,8 +39,8 @@ export function OrAura() {
         </SectionHeading>
 
         <Reveal className="flex flex-wrap items-stretch gap-x-[clamp(32px,5vw,80px)] gap-y-12">
-          <figure className="m-0 flex flex-1 basis-[420px] flex-col gap-3">
-            <div className="relative min-h-[clamp(420px,46vw,640px)] flex-1 overflow-hidden rounded-[6px]">
+          <figure className="m-0 flex flex-1 basis-105 flex-col gap-3">
+            <div className="relative min-h-[clamp(420px,46vw,640px)] flex-1 overflow-hidden rounded-md">
               <CreditedImage
                 src="https://images.unsplash.com/photo-1552566626-2d907dab0dff?auto=format&fit=crop&w=1600&q=75"
                 alt="La salle Or'Aura en soirée"
@@ -49,13 +49,13 @@ export function OrAura() {
                 creditHref="https://unsplash.com/@nickkarvounis"
               />
             </div>
-            <figcaption className="flex justify-between text-[12px] text-oraura-muted-2">
+            <figcaption className="flex justify-between text-xs text-oraura-muted-2">
               <span>La salle</span>
               <span>Or&apos;Aura</span>
             </figcaption>
           </figure>
 
-          <div className="flex flex-1 basis-[440px] flex-col justify-between gap-12">
+          <div className="flex flex-1 basis-110 flex-col justify-between gap-12">
             <p className="m-0 max-w-[28em] text-body text-oraura-muted">
               Cuisine au grill, bar lounge et lieu de rencontre. Pour vos dîners d&apos;affaires,
               afterworks, séminaires et événements privés.
@@ -65,13 +65,13 @@ export function OrAura() {
               {LIST.map((item) => (
                 <div
                   key={item.n}
-                  className="grid grid-cols-[44px_1fr_1fr] items-baseline gap-4 border-t border-rule-inverse py-[22px]"
+                  className="grid grid-cols-[44px_1fr_1fr] items-baseline gap-4 border-t border-rule-inverse py-5.5"
                 >
-                  <span className="text-[12px] text-oraura-muted-2">{item.n}</span>
+                  <span className="text-xs text-oraura-muted-2">{item.n}</span>
                   <span className={`text-[clamp(34px,3.6vw,56px)] leading-[0.9] tracking-[-0.04em] ${item.color}`}>
                     {item.label}
                   </span>
-                  <span className="max-w-[16em] justify-self-end text-right text-[14px] leading-[1.5] text-oraura-muted">
+                  <span className="max-w-[16em] justify-self-end text-right text-sm leading-[1.5] text-oraura-muted">
                     {item.desc}
                   </span>
                 </div>
@@ -79,7 +79,7 @@ export function OrAura() {
             </div>
 
             <div className="flex flex-wrap items-end gap-5">
-              <div className="relative size-[132px] flex-none overflow-hidden rounded-[6px]">
+              <div className="relative size-33 flex-none overflow-hidden rounded-md">
                 <CreditedImage
                   src="https://images.unsplash.com/photo-1500217052183-bc01eee1a74e?auto=format&fit=crop&w=600&q=75"
                   alt="Cocktail signature"
@@ -88,7 +88,7 @@ export function OrAura() {
                   creditHref="https://unsplash.com/@jckbck"
                 />
               </div>
-              <div className="flex flex-1 basis-[220px] flex-col gap-3.5">
+              <div className="flex flex-1 basis-55 flex-col gap-3.5">
                 <span className="text-[13px] leading-[1.5] text-oraura-muted">
                   Privatisation possible pour vos équipes et partenaires.
                 </span>

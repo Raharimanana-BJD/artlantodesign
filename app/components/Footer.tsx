@@ -23,7 +23,7 @@ export function Footer() {
 
           <div className="flex flex-wrap gap-x-[clamp(40px,6vw,96px)] gap-y-10 text-[13.5px]">
             <div className="flex flex-col gap-2.5">
-              <span className="text-[12px] text-warm-muted">• navigation</span>
+              <span className="text-xs text-warm-muted">• navigation</span>
               {FOOTER_NAV_LINKS.map((link) => (
                 <a key={link.href} href={link.href} className="text-warm-ink">
                   {link.label}
@@ -31,7 +31,7 @@ export function Footer() {
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="text-[12px] text-warm-muted">• réseaux</span>
+              <span className="text-xs text-warm-muted">• réseaux</span>
               {SOCIAL_LINKS.map((link) => (
                 <a key={link.label} href={link.href} className="text-warm-ink">
                   {link.label}
@@ -39,19 +39,21 @@ export function Footer() {
               ))}
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="text-[12px] text-warm-muted">• contact</span>
-              <span className="text-warm-ink">contact@votre-domaine.mg</span>
-              <span className="text-warm-ink">+261 XX XX XXX XX</span>
+              <span className="text-xs text-warm-muted">• contact</span>
+              <span className="text-warm-ink">
+                rlanto.rakotoarivelo4@gmail.com
+              </span>
+              <span className="text-warm-ink">+261 34 35 573 23</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-[clamp(56px,6vw,80px)] items-end flex flex-wrap justify-between gap-4 text-[12px] text-warm-muted">
-          <span>© {year} Art Lanto Design SARL</span>
-          <div className="mt-3.5  text-[clamp(40px,10.6vw,152px)] leading-[0.78] font-bold tracking-[-0.06em] whitespace-nowrap text-warm-ink text-center">
+        <div className="mt-[clamp(56px,6vw,80px)] max-md:pb-4 items-end flex flex-wrap justify-between gap-4 text-xs text-warm-muted">
+          <span className="max-md:order-2">© {year} Art Lanto Design SARL</span>
+          <div className="mt-3.5 max-md:order-1 text-[clamp(40px,10.6vw,152px)] leading-[0.78] font-bold tracking-[-0.06em] whitespace-nowrap text-warm-ink text-center">
             art lanto design
           </div>
-          <span>Tuléar · Madagascar</span>
+          <span className="max-md:order-3">Tuléar · Madagascar</span>
         </div>
       </div>
     </footer>

@@ -68,7 +68,7 @@ export function Header({ overlay }: HeaderProps) {
               alt=""
               className={cn("h-7 w-auto", solid ? "invert-0" : "invert")}
             />
-            <span className="font-semibold text-[17px] leading-none tracking-quote">
+            <span className="font-semibold text-body leading-none tracking-quote">
               Art Lanto Design
             </span>
           </a>

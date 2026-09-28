@@ -1,5 +1,7 @@
 import "server-only";
 import nodemailer, { type Transporter } from "nodemailer";
+import { render } from "@react-email/render";
+import { LeadEmail, type LeadEmailRow } from "@/app/emails/LeadEmail";
 
 const FALLBACK_FROM = "Art Lanto Design <no-reply@localhost>";
 // Rejects the comma/semicolon/angle-bracket/quote characters that could turn
@@ -26,25 +28,30 @@ export type LeadPayload =
 
 function composeEmail(lead: LeadPayload) {
   if (lead.kind === "quick") {
+    const rows: LeadEmailRow[] = [{ label: "Téléphone", value: lead.phone }];
     return {
       subject: `Rappel demandé — ${stripCrlf(lead.phone)}`,
-      text: `Téléphone: ${lead.phone}`,
+      heading: "Rappel demandé",
+      text: rows.map((row) => `${row.label}: ${row.value}`).join("\n"),
+      rows,
     };
   }
 
-  const lines = [
-    `Maison: ${lead.brand ?? ""}`,
-    `Type de demande: ${lead.requestType ?? ""}`,
-    `Nom: ${lead.name}`,
-    lead.company ? `Société: ${lead.company}` : null,
-    `E-mail: ${lead.email}`,
-    lead.phone ? `Téléphone: ${lead.phone}` : null,
-    lead.message ? `Message: ${lead.message}` : null,
-  ].filter((line): line is string => line !== null);
+  const rows: LeadEmailRow[] = [
+    { label: "Maison", value: lead.brand ?? "" },
+    { label: "Type de demande", value: lead.requestType ?? "" },
+    { label: "Nom", value: lead.name },
+    lead.company ? { label: "Société", value: lead.company } : null,
+    { label: "E-mail", value: lead.email },
+    lead.phone ? { label: "Téléphone", value: lead.phone } : null,
+    lead.message ? { label: "Message", value: lead.message } : null,
+  ].filter((row): row is LeadEmailRow => row !== null);
 
   return {
     subject: `Demande ${stripCrlf(lead.brand ?? "")} — ${stripCrlf(lead.name)}`,
-    text: lines.join("\n"),
+    heading: `Nouvelle demande — ${lead.brand ?? ""}`,
+    text: rows.map((row) => `${row.label}: ${row.value}`).join("\n"),
+    rows,
   };
 }
 
@@ -72,7 +79,7 @@ function getTransporter(): Transporter | null {
 export async function sendLeadEmail(lead: LeadPayload): Promise<{ ok: true } | { ok: false }> {
   const to = process.env.CONTACT_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL ?? FALLBACK_FROM;
-  const { subject, text } = composeEmail(lead);
+  const { subject, heading, text, rows } = composeEmail(lead);
   const transporter = getTransporter();
 
   if (!transporter || !to) {
@@ -88,7 +95,8 @@ export async function sendLeadEmail(lead: LeadPayload): Promise<{ ok: true } | {
     lead.kind === "full" && STRICT_EMAIL_RE.test(lead.email.trim()) ? lead.email.trim() : undefined;
 
   try {
-    await transporter.sendMail({ from, to, replyTo, subject, text });
+    const html = await render(<LeadEmail heading={heading} preview={subject} rows={rows} />);
+    await transporter.sendMail({ from, to, replyTo, subject, text, html });
     return { ok: true };
   } catch (error) {
     console.error("[contact] send_failed", error);

@@ -36,12 +36,16 @@ type Status = "idle" | "submitting" | "sent" | "validation" | "error";
 function chipClass(active: boolean) {
   return cn(
     "rounded-full border px-4 py-2.5 text-[13.5px] font-medium transition-colors duration-200",
-    active ? "border-white bg-white text-warm-ink" : "border-white/40 bg-white/8 text-white",
+    active
+      ? "border-white bg-white text-warm-ink"
+      : "border-white/40 bg-white/8 text-white",
   );
 }
 
 export function Contact() {
-  const [brandId, setBrandId] = useState<(typeof BRANDS)[number]["id"]>(BRANDS[0].id);
+  const [brandId, setBrandId] = useState<(typeof BRANDS)[number]["id"]>(
+    BRANDS[0].id,
+  );
   const [typeIndex, setTypeIndex] = useState(0);
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -76,7 +80,13 @@ export function Contact() {
       requestType: brand.types[typeIndex],
       website,
     });
-    setStatus(result === "ok" ? "sent" : result === "validation" ? "validation" : "error");
+    setStatus(
+      result === "ok"
+        ? "sent"
+        : result === "validation"
+          ? "validation"
+          : "error",
+    );
   };
 
   const reset = () => {
@@ -101,30 +111,36 @@ export function Contact() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(90deg, rgba(42,26,18,.82), rgba(42,26,18,.55))" }}
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(42,26,18,.82), rgba(42,26,18,.55))",
+        }}
       />
 
-      <Container py="band" className="relative flex flex-wrap gap-x-[clamp(32px,5vw,80px)] gap-y-12">
-        <div className="flex flex-1 basis-[380px] flex-col justify-between gap-10">
+      <Container
+        py="band"
+        className="relative flex flex-wrap gap-x-col-gap gap-y-12"
+      >
+        <div className="flex flex-1 basis-95 flex-col justify-between gap-10">
           <SectionHeading eyebrow="demandez" tone="photo">
             votre devis
           </SectionHeading>
-          <div className="flex flex-col gap-1.5 text-[14px] opacity-90">
-            <span>+261 XX XX XXX XX</span>
-            <span>contact@votre-domaine.mg</span>
+          <div className="flex flex-col gap-1.5 text-sm opacity-90">
+            <span>+261 34 35 573 23</span>
+            <span>rlanto.rakotoarivelo4@gmail.com</span>
             <span>Tuléar (Toliara), Madagascar</span>
           </div>
         </div>
 
-        <div className="flex-1 basis-[460px]">
+        <div className="flex-1 basis-115">
           {status === "sent" ? (
-            <div className="flex min-h-[340px] flex-col justify-center gap-4">
+            <div className="flex min-h-85 flex-col justify-center gap-4">
               <span className="text-[clamp(34px,3.4vw,52px)] leading-none tracking-[-0.035em]">
                 Merci, {name}.
               </span>
-              <p className="m-0 max-w-[28em] text-[16px] leading-[1.55] opacity-90">
-                Votre demande pour <strong>{brand.label}</strong> est bien reçue. Nous revenons
-                vers vous très vite.
+              <p className="m-0 max-w-[28em] text-base leading-[1.55] opacity-90">
+                Votre demande pour <strong>{brand.label}</strong> est bien
+                reçue. Nous revenons vers vous très vite.
               </p>
               <button
                 type="button"
@@ -215,12 +231,13 @@ export function Contact() {
               )}
               {status === "error" && (
                 <span className="text-[13.5px] text-[#ffd48a]">
-                  L&apos;envoi a échoué. Réessayez, ou écrivez-nous à contact@votre-domaine.mg.
+                  L&apos;envoi a échoué. Réessayez, ou écrivez-nous à
+                  rlanto.rakotoarivelo4@gmail.com
                 </span>
               )}
 
               <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-[12.5px] opacity-80">
+                <span className="text-micro opacity-80">
                   Sans engagement · Réponse personnalisée
                 </span>
                 <Pill

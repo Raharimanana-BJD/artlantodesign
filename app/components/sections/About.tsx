@@ -8,7 +8,7 @@ export function About() {
     <section id="about">
       <Container py="section">
         <Reveal className="flex flex-wrap gap-x-[clamp(32px,5vw,80px)] gap-y-14">
-          <div className="flex flex-1 flex-col gap-[clamp(40px,5vw,72px)] basis-[420px]">
+          <div className="flex flex-1 flex-col gap-[clamp(40px,5vw,72px)] basis-105">
             <div className="flex flex-col gap-7">
               <span className="text-micro text-warm-muted">(à propos)</span>
               <h2 className="m-0 text-[clamp(44px,5.8vw,92px)] font-medium uppercase leading-[0.9] tracking-[-0.045em]">
@@ -34,7 +34,7 @@ export function About() {
             />
           </div>
 
-          <div className="grid flex-1 basis-[440px] grid-cols-2 self-end border-t border-l border-rule">
+          <div className="grid flex-1 basis-110 grid-cols-2 self-end border-t border-l border-rule">
             <StatTile>
               <div className="flex h-full flex-col items-start justify-end gap-3">
                 <span className="max-w-[11em] text-[13px] leading-[1.35] text-warm-body">
@@ -63,7 +63,7 @@ export function About() {
               href="#impact"
               className="flex flex-col justify-between gap-6 bg-warm-ink-hover p-5 text-warm-cream transition-colors duration-200 hover:bg-[#3a2016]"
             >
-              <span className="max-w-[14em] text-[15px] font-medium leading-[1.4]">
+              <span className="max-w-[14em] text-small font-medium leading-[1.4]">
                 Le jonc de mer n&apos;est pas qu&apos;une fibre, c&apos;est un revenu pour tout un
                 territoire.
               </span>

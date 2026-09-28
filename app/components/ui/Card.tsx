@@ -9,7 +9,7 @@ export interface CardProps {
 /** The bordered offer/step card pattern (Toliara Handicraft, Processus). */
 export function Card({ children, className }: CardProps) {
   return (
-    <div className={cn("rounded-[6px] border border-rule p-5", className)}>
+    <div className={cn("rounded-md border border-rule p-5", className)}>
       {children}
     </div>
   );

@@ -20,7 +20,13 @@ export const metadata: Metadata = {
     "Le catalogue vannerie de Toliara Handicraft, la sélection de plantes d'Univers Plante, et le menu du restaurant Or'Aura.",
 };
 
-function ProductGrid({ products, muted }: { products: CatalogueProduct[]; muted: string }) {
+function ProductGrid({
+  products,
+  muted,
+}: {
+  products: CatalogueProduct[];
+  muted: string;
+}) {
   return (
     <Reveal
       as="div"
@@ -39,10 +45,16 @@ function ProductGrid({ products, muted }: { products: CatalogueProduct[]; muted:
           />
           <div className="flex items-start justify-between gap-3">
             <div className="flex flex-col gap-1">
-              <strong className="text-[15px] leading-[1.2] font-medium">{product.name}</strong>
-              <span className={cn("text-[13px] leading-[1.4]", muted)}>{product.description}</span>
+              <strong className="text-small leading-[1.2] font-medium">
+                {product.name}
+              </strong>
+              <span className={cn("text-[13px] leading-[1.4]", muted)}>
+                {product.description}
+              </span>
             </div>
-            <span className="flex-none text-[13px] font-semibold whitespace-nowrap">{product.price}</span>
+            <span className="flex-none text-[13px] font-semibold whitespace-nowrap">
+              {product.price}
+            </span>
           </div>
         </div>
       ))}
@@ -55,21 +67,34 @@ export default function CataloguePage() {
     <main>
       <Container py="section" className="flex flex-col gap-6">
         <Reveal as="div" className="flex max-w-[46em] flex-col gap-6">
-          <span className="text-micro text-warm-muted">Catalogue &amp; menu</span>
-          <SectionHeading eyebrow="tout ce que nous">proposons, au même endroit</SectionHeading>
+          <span className="text-micro text-warm-muted">
+            Catalogue &amp; menu
+          </span>
+          <SectionHeading eyebrow="tout ce que nous">
+            proposons, au même endroit
+          </SectionHeading>
           <p className="m-0 text-body text-warm-body">
-            Un aperçu de nos pièces de vannerie, de notre sélection de plantes et du menu du
-            restaurant Or&apos;Aura. Toutes nos pièces se déclinent aussi sur mesure, écrivez-nous
-            pour un devis.
+            Un aperçu de nos pièces de vannerie, de notre sélection de plantes
+            et du menu du restaurant Or&apos;Aura. Toutes nos pièces se
+            déclinent aussi sur mesure, écrivez-nous pour un devis.
           </p>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] font-medium">
-            <a href="#toliara-catalogue" className="underline decoration-1 underline-offset-4">
+            <a
+              href="#toliara-catalogue"
+              className="underline decoration-1 underline-offset-4"
+            >
               Vannerie Toliara Handicraft
             </a>
-            <a href="#plante-catalogue" className="underline decoration-1 underline-offset-4">
+            <a
+              href="#plante-catalogue"
+              className="underline decoration-1 underline-offset-4"
+            >
               Univers Plante
             </a>
-            <a href="#oraura-menu" className="underline decoration-1 underline-offset-4">
+            <a
+              href="#oraura-menu"
+              className="underline decoration-1 underline-offset-4"
+            >
               Menu Or&apos;Aura
             </a>
           </nav>
@@ -81,8 +106,10 @@ export default function CataloguePage() {
           <div className="mb-head-gap flex flex-wrap items-end justify-between gap-6">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
-                <Image src={logoToliara} alt="" className="size-[34px]" />
-                <span className="text-micro text-warm-muted">(01) Toliara Handicraft</span>
+                <Image src={logoToliara} alt="" className="size-8.5" />
+                <span className="text-micro text-warm-muted">
+                  (01) Toliara Handicraft
+                </span>
               </div>
               <SectionHeading eyebrow="la vannerie" tone="warm">
                 & la décoration
@@ -101,10 +128,16 @@ export default function CataloguePage() {
           <div className="mb-head-gap flex flex-wrap items-end justify-between gap-6">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
-                <span className="flex size-[34px] items-center justify-center overflow-hidden rounded-full bg-white">
-                  <Image src={logoUniversPlante} alt="" className="h-[78%] w-[78%] object-contain" />
+                <span className="flex size-8.5 items-center justify-center overflow-hidden rounded-full bg-white">
+                  <Image
+                    src={logoUniversPlante}
+                    alt=""
+                    className="h-[78%] w-[78%] object-contain"
+                  />
                 </span>
-                <span className="text-micro text-sage-muted">(02) Univers Plante</span>
+                <span className="text-micro text-sage-muted">
+                  (02) Univers Plante
+                </span>
               </div>
               <SectionHeading eyebrow="des plantes qui" tone="sage">
                 font vivre vos lieux
@@ -114,7 +147,10 @@ export default function CataloguePage() {
               Passer commande
             </Pill>
           </div>
-          <ProductGrid products={UNIVERS_PLANTE_PRODUCTS} muted="text-sage-muted" />
+          <ProductGrid
+            products={UNIVERS_PLANTE_PRODUCTS}
+            muted="text-sage-muted"
+          />
         </Container>
       </section>
 
@@ -123,8 +159,14 @@ export default function CataloguePage() {
           <div className="mb-head-gap flex flex-wrap items-end justify-between gap-6">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
-                <Image src={logoOraura} alt="" className="size-[34px] rounded-full" />
-                <span className="text-micro text-oraura-muted">(03) Or&apos;Aura</span>
+                <Image
+                  src={logoOraura}
+                  alt=""
+                  className="size-8.5 rounded-full"
+                />
+                <span className="text-micro text-oraura-muted">
+                  (03) Or&apos;Aura
+                </span>
               </div>
               <SectionHeading eyebrow="the lounge grill" tone="gold">
                 & hub restaurant, le menu
@@ -138,7 +180,7 @@ export default function CataloguePage() {
           <Reveal as="div" className="flex flex-col gap-14">
             {ORAURA_MENU.map((category) => (
               <div key={category.name} className="flex flex-col gap-2">
-                <h3 className="m-0 text-[12px] font-semibold tracking-[0.08em] text-oraura-gold uppercase">
+                <h3 className="m-0 text-xs font-semibold tracking-[0.08em] text-oraura-gold uppercase">
                   {category.name}
                 </h3>
                 <div className="flex flex-col border-b border-rule-inverse">
@@ -148,12 +190,16 @@ export default function CataloguePage() {
                       className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-rule-inverse py-4"
                     >
                       <div className="flex flex-col gap-1">
-                        <span className="text-[16px] font-medium">{item.name}</span>
+                        <span className="text-base font-medium">
+                          {item.name}
+                        </span>
                         <span className="text-[13px] leading-[1.4] text-oraura-muted">
                           {item.description}
                         </span>
                       </div>
-                      <span className="flex-none text-[14px] text-oraura-gold">{item.price}</span>
+                      <span className="flex-none text-sm text-oraura-gold">
+                        {item.price}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -161,9 +207,9 @@ export default function CataloguePage() {
             ))}
           </Reveal>
 
-          <p className="mt-10 max-w-[32em] text-[12.5px] leading-[1.6] text-oraura-muted-2">
-            Menu indicatif, sous réserve de disponibilité selon arrivage. Prix en ariary (Ar),
-            taxes incluses.
+          <p className="mt-10 max-w-[32em] text-micro leading-[1.6] text-oraura-muted-2">
+            Menu indicatif, sous réserve de disponibilité selon arrivage. Prix
+            en ariary (Ar), taxes incluses.
           </p>
         </Container>
       </section>

@@ -16,7 +16,7 @@ export const FOOTER_NAV_LINKS = [
   { label: "Vannerie", href: "/#toliara" },
   { label: "Univers Plante", href: "/#plante" },
   { label: "Or'Aura", href: "/#oraura" },
-  { label: "Catalogue & menu", href: "/catalogue" },
+  // { label: "Catalogue & menu", href: "/catalogue" },
 ] as const;
 
 export const SOCIAL_LINKS = [

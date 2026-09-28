@@ -21,7 +21,7 @@ export interface ContainerProps {
 export function Container({ children, py = "section", className, as = "div" }: ContainerProps) {
   const Tag = as;
   return (
-    <Tag className={cn("mx-auto max-w-[1440px] px-gutter", PY_CLASSES[py], className)}>
+    <Tag className={cn("mx-auto max-w-360 px-gutter", PY_CLASSES[py], className)}>
       {children}
     </Tag>
   );
