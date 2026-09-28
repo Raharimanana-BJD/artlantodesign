@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design tokens ported from old/Art Lanto Design v3.dc.html (spec 0001).
+ * One fixed palette, no dark mode: the reference design has a single look.
+ */
+@theme {
+  /* Warm base (main site) */
+  --color-warm-bg: #efeae2;
+  --color-warm-ink: #2a1f18;
+  --color-warm-ink-hover: #4b2a1d;
+  --color-warm-muted: #6e6258;
+  --color-warm-body: #4a3d33;
+  --color-warm-cream: #f3ece2;
+  --color-warm-border: rgb(42 31 24 / 12%);
+  --color-rule: rgb(42 31 24 / 20%);
+  --color-rule-strong: rgb(42 31 24 / 30%);
+  --color-footer-bg: #e4ddd2;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Univers Plante (sage) */
+  --color-sage-bg: #e3e6dc;
+  --color-sage-ink: #1c2a1f;
+  --color-sage-muted: #4d6352;
+  --color-sage-body: #3b5240;
+  --color-sage-accent: #2c6a31;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Or'Aura (dark + gold) */
+  --color-oraura-bg: #1a1410;
+  --color-oraura-muted: #b9ad99;
+  --color-oraura-muted-2: #8f846f;
+  --color-oraura-gold: #f2b319;
+  --color-oraura-green: #8fb33a;
+  --color-oraura-ghost-border: rgb(243 236 226 / 40%);
+  --color-rule-inverse: rgb(243 236 226 / 16%);
+
+  /* Fonts */
+  --font-sans: var(--font-hanken-grotesk);
+  --font-serif: var(--font-instrument-serif);
+
+  /* Fluid type scale (clamp values ported from the old file) */
+  --text-display: clamp(40px, 6.4vw, 108px);
+  --text-display--line-height: 0.86;
+  --text-h2: clamp(40px, 4.6vw, 72px);
+  --text-h2--line-height: 0.95;
+  --text-stat: clamp(40px, 4vw, 60px);
+  --text-stat--line-height: 0.85;
+  --text-quote: clamp(28px, 2.8vw, 42px);
+  --text-quote--line-height: 1.15;
+  --text-body: 17px;
+  --text-body--line-height: 1.55;
+  --text-small: 15px;
+  --text-small--line-height: 1.5;
+  --text-micro: 12.5px;
+  --text-micro--line-height: 1.4;
+
+  /* Named letter spacing per type token (the generic tracking-* scale doesn't fit these) */
+  --tracking-display: -0.045em;
+  --tracking-h2: -0.04em;
+  --tracking-stat: -0.04em;
+  --tracking-quote: -0.01em;
+
+  /* Spacing scale (clamp values ported from the old file) */
+  --spacing-gutter: clamp(20px, 3.4vw, 48px);
+  --spacing-section: clamp(96px, 11vw, 168px);
+  --spacing-band: clamp(96px, 11vw, 160px);
+  --spacing-col-gap: clamp(32px, 5vw, 80px);
+  --spacing-head-gap: clamp(40px, 5vw, 64px);
+
+  /* Shared easing for a layout/transform morph (the Nos maisons card hover,
+     the gallery slide). Hover/focus and the header's own chrome transition
+     use the default ease at 200ms/350ms; see docs/design.md. */
+  --ease-house: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* The mobile menu's full screen wipe and its staggered link reveal. A dramatic
+     ease-in-out, held back on purpose: --ease-house reads too gentle for a wipe
+     that covers the whole viewport. */
+  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-warm-bg);
+  color: var(--color-warm-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Keeps the whole design from scrolling sideways (the footer wordmark is
+   deliberately wider than its container), matching the old file's root rule. */
+html {
+  overflow-x: clip;
 }
