@@ -90,8 +90,8 @@ Intro copy, the still photo, the four stat tiles (founding year, artisans traine
 code in `app/components/sections/About.tsx`
 
 ### 7. Nos maisons
-The three house cards (Toliara Handicraft, Univers Plante, Or'Aura) that widen and reveal their photo and description on hover, each linking to its own section.
-**Done when:** hovering or focusing a card grows it and reveals its photo and description, matching the old file's active state; each card links to its section.
+The three house cards (Toliara Handicraft, Univers Plante, Or'Aura), each linking to its own section. Originally ported the old file's hover-to-reveal active state (only one card showed its photo/description at a time, defaulting to card 01); feedback flagged this as unusable on mobile (no hover) and making cards 02/03 look unfinished at rest, so all three cards now show their photo and description unconditionally, equally weighted.
+**Done when:** all three cards show their photo, tag, number, logo, description, and name without any hover/focus interaction; each card links to its section.
 - [x] Build it: `/develop nos maisons`
 - [ ] Verify it: `/check verify nos maisons`
 code in `app/components/sections/NosMaisons.tsx`
@@ -103,12 +103,12 @@ The vannerie house section: intro copy, catalogue CTA, and the three way card gr
 - [ ] Verify it: `/check verify toliara handicraft`
 code in `app/components/sections/Toliara.tsx`
 
-### 9. Processus & quick contact band
-The four step "how it works" grid (brief, prototype and quote, production, delivery) plus the full bleed band with the short phone only quick contact form.
-**Done when:** the four steps render in order; the quick contact form validates a phone number and shows a confirmation state; submitting it reaches you by email per the Contact feature's decision (spec 0004).
+### 9. Processus
+The four step "how it works" grid (brief, prototype and quote, production, delivery). Originally shipped with its own full bleed "quick contact" phone band; that band was removed after feedback that it competed with the main Contact form as a second conversion point, so this section now only explains the process and points to the single Contact form (feature 14) via its own CTA.
+**Done when:** the four steps render in order; the "Obtenir un devis" CTA scrolls to Contact.
 - [x] Build it: `/develop processus & quick contact band`
 - [ ] Verify it: `/check verify processus & quick contact band`
-code in `app/components/sections/Processus.tsx`. Email delivery still pending: wired once feature 14 (Contact) decides the provider.
+code in `app/components/sections/Processus.tsx`
 
 ### 10. Réalisations gallery
 The horizontally sliding gallery of pieces, with previous and next controls, a numbered counter, and a caption per item.
@@ -139,15 +139,15 @@ The founder photo and quote, plus the three impact stats (local employment, zero
 code in `app/components/sections/Impact.tsx`
 
 ### 14. Contact · Beta
-The main lead form: house picker (Toliara Handicraft, Univers Plante, Or'Aura), request type picker per house, name, company, email, phone, and message fields, validation, a confirmation state, and sending the submission to you by email.
-**Done when:** picking a house updates the request type options and the message placeholder; submitting with a missing name or an invalid email shows the old file's error message and does not send; a valid submission emails you the lead's details and shows the confirmation state naming the chosen house.
+The site's single lead form: house picker (Toliara Handicraft, Univers Plante, Or'Aura), request type picker per house, name, company, email, phone, and message fields (each with a visible label), per-field inline validation, a confirmation state, and sending the submission to you by email. Formerly there were two conversion points (this form plus Processus's standalone quick phone form); the latter was removed after feedback that it competed with this one, so phone now lives here as an optional field alongside email.
+**Done when:** picking a house updates the request type options and the message placeholder; submitting with a missing name shows "Votre nom est requis." under the Nom field, an invalid email shows "Adresse e-mail non valide." under the E-mail field, and neither error blocks the other from showing independently; a valid submission emails you the lead's details and shows the confirmation state naming the chosen house.
 - [x] Design it (spec): `/architect contact`
 - [x] Build it: `/develop contact`
    - [x] Env/config: `.env.local`, `.env.example`, `nodemailer` + `server-only` installed (AC-3)
-   - [x] Email sending: `app/lib/email.ts` (self hosted SMTP via Nodemailer) and the shared `/api/contact` route, honeypot checked before validation (AC-1, AC-2, AC-3)
-   - [x] Client send helper: `app/lib/send-lead.ts` (AC-3, AC-5, AC-6)
-   - [x] `Contact` form component, wired into `app/page.tsx` (AC-4, AC-5, AC-7)
-   - [x] Processus quick form updated to send for real, plus its own honeypot (AC-6)
+   - [x] Email sending: `app/lib/email.tsx` (self hosted SMTP via Nodemailer, HTML template via react-email) and the shared `/api/contact` route, honeypot checked before validation (AC-1, AC-2, AC-3)
+   - [x] Client send helper: `app/lib/send-lead.ts` (AC-3, AC-5)
+   - [x] `Contact` form component with per-field labels and inline errors, wired into `app/page.tsx` (AC-4, AC-5, AC-7)
+   - [x] Processus's quick form removed (feedback: two competing conversion points); phone is now an optional field on this form instead
 - [ ] Verify it: `/check verify contact`
 - [ ] Test it: `/test contact`
 Spec [0004](../specs/0004-contact.md)

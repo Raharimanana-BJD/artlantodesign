@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import logoToliara from "@/app/assets/logo-toliara.png";
 import logoUniversPlante from "@/app/assets/logo-univers-plante.jpg";
@@ -50,8 +47,6 @@ const MAISONS = [
 ];
 
 export function NosMaisons() {
-  const [active, setActive] = useState(0);
-
   return (
     <section id="maisons">
       <Container py="section" className="flex flex-col">
@@ -60,109 +55,82 @@ export function NosMaisons() {
             maisons
           </SectionHeading>
           <p className="m-0 max-w-[22em] text-small text-warm-muted">
-            Survolez une maison pour la découvrir. Combinez les pour un projet
+            Trois maisons, un même soin du détail. Combinez-les pour un projet
             complet.
           </p>
         </div>
 
-        <Reveal as="div" stagger={0.08} className="flex flex-wrap gap-3">
-          {MAISONS.map((m, i) => {
-            const isActive = i === active;
-            return (
-              <a
-                key={m.href}
-                href={m.href}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
+        <Reveal
+          as="div"
+          stagger={0.08}
+          className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-3"
+        >
+          {MAISONS.map((m) => (
+            <a
+              key={m.href}
+              href={m.href}
+              className="group relative flex min-h-[420px] flex-col justify-between gap-10 overflow-hidden rounded-md p-5 text-white outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-ink"
+            >
+              <div className="absolute inset-0">
+                <CreditedImage
+                  src={m.src}
+                  alt={m.name}
+                  sizes="(max-width: 900px) 100vw, 400px"
+                  credit={m.credit}
+                  creditHref={m.creditHref}
+                  creditLinks={false}
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
                 style={{
-                  flex: isActive ? "1.7 1 320px" : "1 1 220px",
-                  transition: "flex 600ms var(--ease-house), color 300ms",
+                  background:
+                    "linear-gradient(180deg, rgba(30,20,14,.55) 0%, rgba(30,20,14,.15) 45%, rgba(30,20,14,.72) 100%)",
                 }}
-                className={cardClassName(isActive)}
-              >
-                {isActive && (
-                  <>
-                    <div className="absolute inset-0">
-                      <CreditedImage
-                        src={m.src}
-                        alt={m.name}
-                        sizes="(max-width: 900px) 100vw, 600px"
-                        credit={m.credit}
-                        creditHref={m.creditHref}
-                        creditLinks={false}
-                      />
-                    </div>
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(30,20,14,.55) 0%, rgba(30,20,14,.1) 45%, rgba(30,20,14,.7) 100%)",
-                      }}
-                    />
-                  </>
-                )}
+              />
 
-                <div className="relative flex flex-col gap-2.5">
-                  <span className="text-xs opacity-75">{m.tag}</span>
-                  <span className="border-t border-current pt-2.5 text-2xl font-medium tracking-[-0.02em]">
-                    {m.n}
-                  </span>
-                </div>
+              <div className="relative flex flex-col gap-2.5">
+                <span className="text-xs opacity-75">{m.tag}</span>
+                <span className="border-t border-current pt-2.5 text-2xl font-medium tracking-[-0.02em]">
+                  {m.n}
+                </span>
+              </div>
 
-                <div className="relative flex flex-col gap-4">
-                  <span
+              <div className="relative flex flex-col gap-4">
+                <span
+                  className={
+                    "flex size-9.5 items-center justify-center overflow-hidden " +
+                    (m.logoShape === "square" ? "" : "rounded-full") +
+                    (m.logoShape === "circle-white" ? " bg-white" : "")
+                  }
+                >
+                  <Image
+                    src={m.logo}
+                    alt=""
                     className={
-                      "flex size-9.5 items-center justify-center overflow-hidden " +
-                      (m.logoShape === "square" ? "" : "rounded-full") +
-                      (m.logoShape === "circle-white" ? " bg-white" : "")
+                      m.logoShape === "circle-white"
+                        ? "h-[78%] w-[78%] object-contain"
+                        : "h-full w-full object-contain"
                     }
-                  >
-                    <Image
-                      src={m.logo}
-                      alt=""
-                      className={
-                        m.logoShape === "circle-white"
-                          ? "h-[78%] w-[78%] object-contain"
-                          : "h-full w-full object-contain"
-                      }
-                    />
+                  />
+                </span>
+                <span className="max-w-[24em] text-sm leading-normal text-white/90">
+                  {m.desc}
+                </span>
+                <span className="flex items-end justify-between gap-3">
+                  <span className="max-w-[8em] text-[clamp(24px,2.2vw,32px)] leading-none font-medium tracking-[-0.03em]">
+                    {m.name}
                   </span>
-                  {isActive && (
-                    <span className="max-w-[24em] text-sm leading-normal text-white/90">
-                      {m.desc}
-                    </span>
-                  )}
-                  <span className="flex items-end justify-between gap-3">
-                    <span className="max-w-[8em] text-[clamp(24px,2.2vw,32px)] leading-none font-medium tracking-[-0.03em]">
-                      {m.name}
-                    </span>
-                    <span
-                      className={
-                        "flex size-9 flex-none items-center justify-center rounded-full text-sm " +
-                        (isActive
-                          ? "bg-white text-warm-ink"
-                          : "border border-warm-ink/30 text-warm-ink")
-                      }
-                    >
-                      →
-                    </span>
+                  <span className="flex size-9 flex-none items-center justify-center rounded-full bg-white text-sm text-warm-ink transition-transform duration-200 group-hover:translate-x-0.5">
+                    →
                   </span>
-                </div>
-              </a>
-            );
-          })}
+                </span>
+              </div>
+            </a>
+          ))}
         </Reveal>
       </Container>
     </section>
-  );
-}
-
-function cardClassName(isActive: boolean) {
-  return (
-    "group relative flex min-h-[480px] flex-col justify-between gap-10 overflow-hidden rounded-[6px] p-5 box-border outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-ink " +
-    (isActive
-      ? "border border-transparent text-white"
-      : "border border-rule text-warm-ink")
   );
 }

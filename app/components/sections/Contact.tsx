@@ -30,8 +30,14 @@ const BRANDS = [
 ] as const;
 
 const EMAIL_RE = /^\S+@\S+\.\S+$/;
+const CONTACT_EMAIL = "rlanto.rakotoarivelo4@gmail.com";
 
-type Status = "idle" | "submitting" | "sent" | "validation" | "error";
+type Status = "idle" | "submitting" | "sent" | "error";
+
+interface FieldErrors {
+  name?: string;
+  email?: string;
+}
 
 function chipClass(active: boolean) {
   return cn(
@@ -39,6 +45,13 @@ function chipClass(active: boolean) {
     active
       ? "border-white bg-white text-warm-ink"
       : "border-white/40 bg-white/8 text-white",
+  );
+}
+
+function fieldClass(hasError: boolean) {
+  return cn(
+    "rounded-full border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none",
+    hasError && "outline outline-2 outline-[#e2734a]",
   );
 }
 
@@ -54,6 +67,8 @@ export function Contact() {
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [formError, setFormError] = useState(false);
 
   const brand = BRANDS.find((b) => b.id === brandId) ?? BRANDS[0];
 
@@ -64,10 +79,14 @@ export function Contact() {
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !EMAIL_RE.test(email)) {
-      setStatus("validation");
-      return;
-    }
+    setFormError(false);
+
+    const errors: FieldErrors = {};
+    if (!name.trim()) errors.name = "Votre nom est requis.";
+    if (!EMAIL_RE.test(email)) errors.email = "Adresse e-mail non valide.";
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
     setStatus("submitting");
     const result = await sendLead({
       kind: "full",
@@ -80,13 +99,13 @@ export function Contact() {
       requestType: brand.types[typeIndex],
       website,
     });
-    setStatus(
-      result === "ok"
-        ? "sent"
-        : result === "validation"
-          ? "validation"
-          : "error",
-    );
+
+    if (result === "ok") {
+      setStatus("sent");
+    } else {
+      setStatus("idle");
+      setFormError(true);
+    }
   };
 
   const reset = () => {
@@ -97,6 +116,8 @@ export function Contact() {
     setPhone("");
     setMessage("");
     setTypeIndex(0);
+    setFieldErrors({});
+    setFormError(false);
   };
 
   return (
@@ -127,7 +148,7 @@ export function Contact() {
           </SectionHeading>
           <div className="flex flex-col gap-1.5 text-sm opacity-90">
             <span>+261 34 35 573 23</span>
-            <span>rlanto.rakotoarivelo4@gmail.com</span>
+            <span>{CONTACT_EMAIL}</span>
             <span>Tuléar (Toliara), Madagascar</span>
           </div>
         </div>
@@ -151,7 +172,7 @@ export function Contact() {
               </button>
             </div>
           ) : (
-            <form onSubmit={submit} className="flex flex-col gap-3">
+            <form onSubmit={submit} noValidate className="flex flex-col gap-3">
               <input
                 type="text"
                 value={website}
@@ -163,82 +184,166 @@ export function Contact() {
                 className="absolute left-[-9999px] top-auto size-px overflow-hidden"
               />
 
-              <div className="flex flex-wrap gap-1.5">
-                {BRANDS.map((b) => (
-                  <button
-                    key={b.id}
-                    type="button"
-                    onClick={() => pickBrand(b.id)}
-                    className={chipClass(b.id === brandId)}
-                  >
-                    {b.label}
-                  </button>
-                ))}
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[12px] font-medium text-white/70">
+                  Maison concernée
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {BRANDS.map((b) => (
+                    <button
+                      key={b.id}
+                      type="button"
+                      onClick={() => pickBrand(b.id)}
+                      aria-pressed={b.id === brandId}
+                      className={chipClass(b.id === brandId)}
+                    >
+                      {b.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="mb-1.5 flex flex-wrap gap-1.5">
-                {brand.types.map((t, i) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setTypeIndex(i)}
-                    className={chipClass(i === typeIndex)}
-                  >
-                    {t}
-                  </button>
-                ))}
+
+              <div className="mb-1.5 flex flex-col gap-1.5">
+                <span className="text-[12px] font-medium text-white/70">
+                  Type de demande
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {brand.types.map((t, i) => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setTypeIndex(i)}
+                      aria-pressed={i === typeIndex}
+                      className={chipClass(i === typeIndex)}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-2.5">
-                <input
-                  placeholder="Votre nom *"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="rounded-full border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
-                />
-                <input
-                  placeholder="Société / établissement"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  className="rounded-full border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
-                />
-                <input
-                  placeholder="E-mail *"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-full border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
-                />
-                <input
-                  placeholder="Téléphone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="rounded-full border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="contact-name"
+                    className="text-[12px] font-medium text-white/70"
+                  >
+                    Nom *
+                  </label>
+                  <input
+                    id="contact-name"
+                    required
+                    aria-required="true"
+                    aria-invalid={!!fieldErrors.name}
+                    aria-describedby={
+                      fieldErrors.name ? "contact-name-error" : undefined
+                    }
+                    placeholder="Ex. Jean Randria"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className={fieldClass(!!fieldErrors.name)}
+                  />
+                  {fieldErrors.name && (
+                    <span
+                      id="contact-name-error"
+                      className="text-[12.5px] text-[#ffd48a]"
+                    >
+                      {fieldErrors.name}
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="contact-company"
+                    className="text-[12px] font-medium text-white/70"
+                  >
+                    Société / établissement
+                  </label>
+                  <input
+                    id="contact-company"
+                    placeholder="Optionnel"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    className={fieldClass(false)}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="contact-email"
+                    className="text-[12px] font-medium text-white/70"
+                  >
+                    E-mail *
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    required
+                    aria-required="true"
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={
+                      fieldErrors.email ? "contact-email-error" : undefined
+                    }
+                    placeholder="vous@exemple.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={fieldClass(!!fieldErrors.email)}
+                  />
+                  {fieldErrors.email && (
+                    <span
+                      id="contact-email-error"
+                      className="text-[12.5px] text-[#ffd48a]"
+                    >
+                      {fieldErrors.email}
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor="contact-phone"
+                    className="text-[12px] font-medium text-white/70"
+                  >
+                    Téléphone
+                  </label>
+                  <input
+                    id="contact-phone"
+                    placeholder="Optionnel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className={fieldClass(false)}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="contact-message"
+                  className="text-[12px] font-medium text-white/70"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  placeholder={brand.placeholder}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={3}
+                  className="resize-y rounded-[18px] border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
                 />
               </div>
 
-              <textarea
-                placeholder={brand.placeholder}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                rows={3}
-                className="resize-y rounded-[18px] border-0 bg-white/90 px-5 py-3.5 text-[14.5px] text-warm-ink outline-none"
-              />
-
-              {status === "validation" && (
+              {formError && (
                 <span className="text-[13.5px] text-[#ffd48a]">
-                  Merci d&apos;indiquer au moins votre nom et un e-mail valide.
-                </span>
-              )}
-              {status === "error" && (
-                <span className="text-[13.5px] text-[#ffd48a]">
-                  L&apos;envoi a échoué. Réessayez, ou écrivez-nous à
-                  rlanto.rakotoarivelo4@gmail.com
+                  L&apos;envoi a échoué. Réessayez, ou écrivez-nous à{" "}
+                  {CONTACT_EMAIL}
                 </span>
               )}
 
               <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
                 <span className="text-micro opacity-80">
-                  Sans engagement · Réponse personnalisée
+                  * Champs obligatoires · Réponse personnalisée
                 </span>
                 <Pill
                   type="submit"

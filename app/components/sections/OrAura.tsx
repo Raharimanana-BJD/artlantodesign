@@ -88,13 +88,14 @@ export function OrAura() {
                   creditHref="https://unsplash.com/@jckbck"
                 />
               </div>
-              <div className="flex flex-1 basis-55 flex-col gap-3.5">
+              <div className="flex flex-1 basis-55 flex-col justify-center gap-1">
                 <span className="text-[13px] leading-[1.5] text-oraura-muted">
-                  Privatisation possible pour vos équipes et partenaires.
+                  Privatisation possible pour vos équipes et partenaires,{" "}
+                  <a href="#contact" className="text-oraura-gold underline decoration-1 underline-offset-2">
+                    nous en discuter
+                  </a>
+                  .
                 </span>
-                <Pill href="#contact" variant="ghost" size="sm" className="self-start">
-                  Privatiser l&apos;espace
-                </Pill>
               </div>
             </div>
           </div>

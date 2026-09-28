@@ -1,8 +1,9 @@
 export const NAV_LINKS = [
   { label: "Nos maisons", href: "/#maisons" },
   { label: "Vannerie", href: "/#toliara" },
+  { label: "Univers Plante", href: "/#plante" },
+  { label: "Or'Aura", href: "/#oraura" },
   // { label: "Catalogue", href: "/catalogue" },
-  { label: "Processus", href: "/#processus" },
   { label: "Questions", href: "/#faq" },
 ] as const;
 

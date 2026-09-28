@@ -33,28 +33,21 @@ export async function POST(request: Request) {
     return Response.json({ ok: true }, { status: 200 });
   }
 
-  if (raw.kind !== "quick" && raw.kind !== "full") return invalid();
+  if (raw.kind !== "full") return invalid();
 
-  let lead: LeadPayload;
-  if (raw.kind === "quick") {
-    const phone = truncate(raw.phone, SHORT_MAX);
-    if (!phone) return invalid();
-    lead = { kind: "quick", phone };
-  } else {
-    const name = truncate(raw.name, SHORT_MAX);
-    const email = truncate(raw.email, SHORT_MAX);
-    if (!name || !email || !EMAIL_RE.test(email)) return invalid();
-    lead = {
-      kind: "full",
-      name,
-      email,
-      company: truncate(raw.company, SHORT_MAX),
-      phone: truncate(raw.phone, SHORT_MAX),
-      message: truncate(raw.message, MESSAGE_MAX),
-      brand: truncate(raw.brand, SHORT_MAX),
-      requestType: truncate(raw.requestType, SHORT_MAX),
-    };
-  }
+  const name = truncate(raw.name, SHORT_MAX);
+  const email = truncate(raw.email, SHORT_MAX);
+  if (!name || !email || !EMAIL_RE.test(email)) return invalid();
+  const lead: LeadPayload = {
+    kind: "full",
+    name,
+    email,
+    company: truncate(raw.company, SHORT_MAX),
+    phone: truncate(raw.phone, SHORT_MAX),
+    message: truncate(raw.message, MESSAGE_MAX),
+    brand: truncate(raw.brand, SHORT_MAX),
+    requestType: truncate(raw.requestType, SHORT_MAX),
+  };
 
   const result = await sendLeadEmail(lead);
   if (!result.ok) {

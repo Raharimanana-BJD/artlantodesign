@@ -13,30 +13,18 @@ function stripCrlf(value: string) {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
-export type LeadPayload =
-  | { kind: "quick"; phone: string }
-  | {
-      kind: "full";
-      name: string;
-      email: string;
-      company?: string;
-      phone?: string;
-      message?: string;
-      brand?: string;
-      requestType?: string;
-    };
+export type LeadPayload = {
+  kind: "full";
+  name: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  message?: string;
+  brand?: string;
+  requestType?: string;
+};
 
 function composeEmail(lead: LeadPayload) {
-  if (lead.kind === "quick") {
-    const rows: LeadEmailRow[] = [{ label: "Téléphone", value: lead.phone }];
-    return {
-      subject: `Rappel demandé — ${stripCrlf(lead.phone)}`,
-      heading: "Rappel demandé",
-      text: rows.map((row) => `${row.label}: ${row.value}`).join("\n"),
-      rows,
-    };
-  }
-
   const rows: LeadEmailRow[] = [
     { label: "Maison", value: lead.brand ?? "" },
     { label: "Type de demande", value: lead.requestType ?? "" },
@@ -91,8 +79,7 @@ export async function sendLeadEmail(lead: LeadPayload): Promise<{ ok: true } | {
     return { ok: false };
   }
 
-  const replyTo =
-    lead.kind === "full" && STRICT_EMAIL_RE.test(lead.email.trim()) ? lead.email.trim() : undefined;
+  const replyTo = STRICT_EMAIL_RE.test(lead.email.trim()) ? lead.email.trim() : undefined;
 
   try {
     const html = await render(<LeadEmail heading={heading} preview={subject} rows={rows} />);

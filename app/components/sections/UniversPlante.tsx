@@ -57,7 +57,12 @@ export function UniversPlante() {
                   </span>
                   <span className="flex items-center gap-4 text-[13px] text-sage-muted">
                     {c.desc}
-                    <span className="text-sage-ink">+</span>
+                    <span
+                      aria-hidden="true"
+                      className="text-sage-ink transition-transform duration-200 group-hover:translate-x-0.5"
+                    >
+                      →
+                    </span>
                   </span>
                 </a>
               ))}

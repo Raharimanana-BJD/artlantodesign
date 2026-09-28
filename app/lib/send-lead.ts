@@ -1,4 +1,3 @@
-export type QuickLead = { kind: "quick"; phone: string; website: string };
 export type FullLead = {
   kind: "full";
   name: string;
@@ -13,7 +12,7 @@ export type FullLead = {
 
 export type SendLeadResult = "ok" | "validation" | "send_failed" | "network";
 
-export async function sendLead(payload: QuickLead | FullLead): Promise<SendLeadResult> {
+export async function sendLead(payload: FullLead): Promise<SendLeadResult> {
   try {
     const res = await fetch("/api/contact", {
       method: "POST",

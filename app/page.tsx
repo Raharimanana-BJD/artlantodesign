@@ -17,13 +17,13 @@ export default function Home() {
       <About />
       <NosMaisons />
       <Toliara />
-      <Processus />
-      <Gallery />
       <UniversPlante />
       <OrAura />
+      <Gallery />
+      <Processus />
       <Impact />
-      <Contact />
       <Faq />
+      <Contact />
     </main>
   );
 }
