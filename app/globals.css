@@ -39,7 +39,7 @@
 
   /* Fluid type scale (clamp values ported from the old file) */
   --text-display: clamp(40px, 6.4vw, 108px);
-  --text-display--line-height: 0.86;
+  --text-display--line-height: 0.98;
   --text-h2: clamp(40px, 4.6vw, 72px);
   --text-h2--line-height: 0.95;
   --text-stat: clamp(40px, 4vw, 60px);

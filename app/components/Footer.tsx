@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="overflow-hidden bg-footer-bg">
       <div className="mx-auto max-w-360 px-gutter pt-[clamp(64px,7vw,96px)]">
         <div className="flex flex-wrap justify-between gap-10">
-          <div className="flex flex-col gap-4.5">
+          <div className="flex w-full flex-col gap-4.5 md:w-auto">
             <SectionHeading eyebrow="prêt à">commencer ?</SectionHeading>
             <Pill
               href={QUOTE_CTA.href}

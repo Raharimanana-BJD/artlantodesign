@@ -44,7 +44,7 @@ export type PillProps = PillAsLink | PillAsButton;
 export function Pill({ variant = "dark", size = "md", children, className, ...rest }: PillProps) {
   const sizing = SIZE_CLASSES[size];
   const sharedClassName = cn(
-    "inline-flex items-center gap-2.5 rounded-full font-semibold transition-colors duration-200",
+    "inline-flex w-full items-center justify-center gap-2.5 rounded-full font-semibold transition-colors duration-200 sm:w-auto",
     "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline",
     VARIANT_CLASSES[variant],
     sizing.pill,
